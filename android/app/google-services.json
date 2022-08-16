@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "808539772933",
+    "project_id": "iizmotabar-flutter-brew",
+    "storage_bucket": "iizmotabar-flutter-brew.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808539772933:android:80cfc50b73d9111c74646c",
+        "android_client_info": {
+          "package_name": "com.example.brew_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808539772933-39l3jburg63obfv66dje1ervtk844t9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf-BMcN2aVN44BM4oqg0fY5rFXGtFIMAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808539772933-39l3jburg63obfv66dje1ervtk844t9d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "808539772933-qqkgs0eurjuhv32cstile0upgeoebgds.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.brewApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
