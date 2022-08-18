@@ -1,10 +1,14 @@
 import 'package:brew_app/screens/home/home_screen.dart';
-import 'package:brew_app/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+import 'models/local_user.dart';
 import 'screens/authenticate/authenticate.dart';
+import 'screens/authenticate/register_user.dart';
 import 'screens/authenticate/sign_in.dart';
+import 'screens/services/auth_service.dart';
+import 'screens/wrapper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,18 +24,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Brew App',
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
+    return StreamProvider<LocalUser?>.value(
+      initialData: null,
+      catchError: (context, error) => null,
+      value: AuthService().userStream,
+      child: MaterialApp(
+        title: 'Brew App',
+        theme: ThemeData(
+          primarySwatch: Colors.brown,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const Wrapper(),
+          '/authenticate': (context) => const Authenticate(),
+          '/home': (context) => const HomeScreen(),
+          '/signin': (context) => SignIn(
+                toggleView: () {},
+              ),
+          '/register': (context) => RegisterUser(
+                toggleView: () {},
+              ),
+        },
       ),
-      initialRoute: '/wrapper',
-      routes: {
-        '/': (context) => const HomeScreen(),
-        '/authenticate': (context) => const Authenticate(),
-        '/wrapper': (context) => const Wrapper(),
-        '/signin': (context) => const SignIn(),
-      },
     );
   }
 }
