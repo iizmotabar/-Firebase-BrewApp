@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:brew_app/screens/services/auth_service.dart';
 
 class SignIn extends StatefulWidget {
-  Function toggleView;
-  SignIn({
+  final Function toggleView;
+  const SignIn({
     Key? key,
     required this.toggleView,
   }) : super(key: key);
@@ -34,7 +34,9 @@ class _SignInState extends State<SignIn> {
         actions: [
           ElevatedButton.icon(
               onPressed: () {
-                widget.toggleView;
+                widget.toggleView();
+
+                print('Switching to RegisterUser');
               },
               icon: const Icon(Icons.person),
               label: const Text('Register')),
@@ -93,21 +95,6 @@ class _SignInState extends State<SignIn> {
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text('Sign in Now!'),
-                      ),
-                    ),
-                  ),
-                ),
-                //! Temporary Button
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Pop in Now!'),
                       ),
                     ),
                   ),
