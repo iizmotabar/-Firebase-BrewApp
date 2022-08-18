@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:brew_app/screens/services/auth_service.dart';
 
 class RegisterUser extends StatefulWidget {
-  Function toggleView;
-  RegisterUser({
+  final Function toggleView;
+  const RegisterUser({
     Key? key,
     required this.toggleView,
   }) : super(key: key);
@@ -28,14 +28,12 @@ class _RegisterUserState extends State<RegisterUser> {
       appBar: AppBar(
         actions: [
           ElevatedButton.icon(
-              onPressed: () {
-                widget.toggleView;
-              },
+              onPressed: () => widget.toggleView(),
               icon: const Icon(Icons.person),
-              label: const Text('Register')),
+              label: const Text('Sign In')),
         ],
         backgroundColor: Colors.brown,
-        title: const Text('Sign Up!'),
+        title: const Text('Register'),
         centerTitle: true,
       ),
       backgroundColor: Colors.brown.shade100,
@@ -78,28 +76,18 @@ class _RegisterUserState extends State<RegisterUser> {
                         userPassword: passwordController.text,
                       );
                       if (result != null) {
-                        print(result.toString());
+                        print('User Created Successfully');
+                        showDialog(
+                          context: context,
+                          builder: (context) =>
+                              const Text('User Successfully signed up!'),
+                        );
                       }
                     },
                     child: Container(
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text('Register Now!'),
-                      ),
-                    ),
-                  ),
-                ),
-                //! Temporary Button
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Pop in Now!'),
                       ),
                     ),
                   ),
