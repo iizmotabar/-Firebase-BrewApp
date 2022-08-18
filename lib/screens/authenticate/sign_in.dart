@@ -16,6 +16,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   AuthService authService = AuthService();
+  final _signInFormKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -50,10 +51,17 @@ class _SignInState extends State<SignIn> {
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
         child: Center(
           child: Form(
+            key: _signInFormKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextField(
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isNotEmpty && value.contains('@')) {
+                      return null;
+                    }
+                    return 'Please enter a valid email';
+                  },
                   controller: _emailController,
                   decoration: const InputDecoration(
                     hintText: 'Enter your email',
@@ -61,7 +69,9 @@ class _SignInState extends State<SignIn> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) =>
+                        value!.isEmpty ? 'Please type in your password' : null,
                     obscureText: true,
                     controller: _passwordController,
                     decoration: const InputDecoration(
@@ -73,21 +83,14 @@ class _SignInState extends State<SignIn> {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: ElevatedButton(
                     onPressed: () async {
-                      dynamic result =
-                          await authService.signInWithEmailAndPassword(
-                        userEmail: _emailController.text,
-                        userPassword: _passwordController.text,
-                      );
-                      if (result == null) {
-                        print('Something went wrong');
-                      } else {
-                        if (mounted) {
-                          print('Signed in successfully');
-                          print('This is the user: ${result.uid}');
-                          Navigator.pushNamed(
-                            context,
-                            '/',
-                          );
+                      if (_signInFormKey.currentState!.validate()) {
+                        dynamic result =
+                            await authService.signInWithEmailAndPassword(
+                          userEmail: _emailController.text,
+                          userPassword: _passwordController.text,
+                        );
+                        if (result == null) {
+                          print('Error signing in');
                         }
                       }
                     },

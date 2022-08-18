@@ -20,6 +20,8 @@ class _RegisterUserState extends State<RegisterUser> {
     print('RegisterUser build()');
 
     AuthService authService = AuthService();
+    final registerFormKey = GlobalKey<FormState>();
+
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     final nameController = TextEditingController();
@@ -41,16 +43,25 @@ class _RegisterUserState extends State<RegisterUser> {
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
         child: Center(
           child: Form(
+            key: registerFormKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextField(
+                TextFormField(
+                  validator: (value) =>
+                      value!.isEmpty ? 'Name is required' : null,
                   controller: nameController,
                   decoration: const InputDecoration(
                     hintText: 'Enter your Name',
                   ),
                 ),
-                TextField(
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isNotEmpty && value.contains('@')) {
+                      return null;
+                    }
+                    return 'Please enter a valid email address';
+                  },
                   controller: emailController,
                   decoration: const InputDecoration(
                     hintText: 'Enter your email',
@@ -58,7 +69,13 @@ class _RegisterUserState extends State<RegisterUser> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isNotEmpty && value.length > 6) {
+                        return null;
+                      }
+                      return 'Password must be at least 6 characters';
+                    },
                     obscureText: true,
                     controller: passwordController,
                     decoration: const InputDecoration(
@@ -70,19 +87,14 @@ class _RegisterUserState extends State<RegisterUser> {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: ElevatedButton(
                     onPressed: () async {
-                      dynamic result =
-                          await authService.createUserWithEmailAndPassword(
-                        userEmail: emailController.text,
-                        userPassword: passwordController.text,
-                      );
-                      if (result != null) {
-                        print('User Created Successfully');
-                        showDialog(
-                          context: context,
-                          builder: (context) =>
-                              const Text('User Successfully signed up!'),
+                      if (registerFormKey.currentState!.validate()) {
+                        dynamic result =
+                            await authService.createUserWithEmailAndPassword(
+                          userEmail: emailController.text,
+                          userPassword: passwordController.text,
                         );
                       }
+                      const SnackBar(content: Text('SignUp Successful!'));
                     },
                     child: Container(
                       child: const Padding(
