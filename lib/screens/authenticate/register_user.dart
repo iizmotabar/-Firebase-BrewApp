@@ -3,32 +3,27 @@ import 'package:flutter/material.dart';
 
 import 'package:brew_app/screens/services/auth_service.dart';
 
-class SignIn extends StatefulWidget {
+class RegisterUser extends StatefulWidget {
   Function toggleView;
-  SignIn({
+  RegisterUser({
     Key? key,
     required this.toggleView,
   }) : super(key: key);
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<RegisterUser> createState() => _RegisterUserState();
 }
 
-class _SignInState extends State<SignIn> {
-  AuthService authService = AuthService();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
+class _RegisterUserState extends State<RegisterUser> {
   @override
   Widget build(BuildContext context) {
-    print('SignIn build()');
+    print('RegisterUser build()');
+
+    AuthService authService = AuthService();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final nameController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -40,7 +35,7 @@ class _SignInState extends State<SignIn> {
               label: const Text('Register')),
         ],
         backgroundColor: Colors.brown,
-        title: const Text('Sign In'),
+        title: const Text('Sign Up!'),
         centerTitle: true,
       ),
       backgroundColor: Colors.brown.shade100,
@@ -52,7 +47,13 @@ class _SignInState extends State<SignIn> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextField(
-                  controller: _emailController,
+                  controller: nameController,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter your Name',
+                  ),
+                ),
+                TextField(
+                  controller: emailController,
                   decoration: const InputDecoration(
                     hintText: 'Enter your email',
                   ),
@@ -61,7 +62,7 @@ class _SignInState extends State<SignIn> {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: TextField(
                     obscureText: true,
-                    controller: _passwordController,
+                    controller: passwordController,
                     decoration: const InputDecoration(
                       hintText: 'Enter your password',
                     ),
@@ -72,27 +73,18 @@ class _SignInState extends State<SignIn> {
                   child: ElevatedButton(
                     onPressed: () async {
                       dynamic result =
-                          await authService.signInWithEmailAndPassword(
-                        userEmail: _emailController.text,
-                        userPassword: _passwordController.text,
+                          await authService.createUserWithEmailAndPassword(
+                        userEmail: emailController.text,
+                        userPassword: passwordController.text,
                       );
-                      if (result == null) {
-                        print('Something went wrong');
-                      } else {
-                        if (mounted) {
-                          print('Signed in successfully');
-                          print('This is the user: ${result.uid}');
-                          Navigator.pushNamed(
-                            context,
-                            '/',
-                          );
-                        }
+                      if (result != null) {
+                        print(result.toString());
                       }
                     },
                     child: Container(
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('Sign in Now!'),
+                        child: Text('Register Now!'),
                       ),
                     ),
                   ),

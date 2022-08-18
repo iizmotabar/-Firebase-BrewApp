@@ -15,13 +15,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              authService.signout();
-              Navigator.popAndPushNamed(context, '/authenticate');
-            },
-          ),
+          ElevatedButton.icon(
+              onPressed: () async {
+                await authService.signout();
+              },
+              icon: const Icon(Icons.person),
+              label: const Text('SignOut')),
         ],
         centerTitle: true,
         title: const Text(
