@@ -112,6 +112,7 @@ class _RegisterUserState extends State<RegisterUser> {
                               });
                               dynamic result = await authService
                                   .createUserWithEmailAndPassword(
+                                    userName: nameController.text,
                                 userEmail: emailController.text,
                                 userPassword: passwordController.text,
                               );
