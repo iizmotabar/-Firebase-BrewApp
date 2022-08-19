@@ -93,6 +93,9 @@ class _RegisterUserState extends State<RegisterUser> {
                           userEmail: emailController.text,
                           userPassword: passwordController.text,
                         );
+                        if (result == null) {
+                          print('Error Registering a new user');
+                        }
                       }
                       const SnackBar(content: Text('SignUp Successful!'));
                     },
