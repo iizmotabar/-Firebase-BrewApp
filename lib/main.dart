@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       catchError: (context, error) => null,
       value: AuthService().userStream,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Brew App',
         theme: ThemeData(
           primarySwatch: Colors.brown,
