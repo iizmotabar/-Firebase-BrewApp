@@ -4,7 +4,9 @@ import 'package:brew_app/screens/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/constants.dart';
 import 'brew_list.dart';
+import 'settings_bottom_sheet.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -15,44 +17,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     void showSettingsPanel() {
       showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (context) {
-          return Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'Settings',
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                const Text(
-                  'Choose an option',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                ElevatedButton(
-                  child: const Text(
-                    'Logout',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    ),
-                  ),
-                  onPressed: () async {
-                    await authService.signout();
-                  },
-                ),
-              ],
-            ),
-          );
+          return const SettingsBottomSheet();
         },
       );
     }

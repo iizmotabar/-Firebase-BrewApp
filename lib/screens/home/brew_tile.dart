@@ -11,6 +11,9 @@ class BrewTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         // margin: const EdgeInsets.fromLTRB(10, 6, 100, 0.0),
         child: ListTile(
           leading: CircleAvatar(

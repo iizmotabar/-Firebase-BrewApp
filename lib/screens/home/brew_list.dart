@@ -19,9 +19,7 @@ class BrewList extends StatelessWidget {
         itemBuilder: (context, index) => Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
-              child: Card(
-                child: BrewTile(brews: brews[index]),
-              ),
+              child: BrewTile(brews: brews[index]),
             ));
     // return Container(
     //   child: Text(brews!.docs.map((doc) => doc.data()).toString()),
