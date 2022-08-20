@@ -16,26 +16,25 @@ class RegisterUser extends StatefulWidget {
 }
 
 class _RegisterUserState extends State<RegisterUser> {
+  AuthService authService = AuthService();
+  final registerFormKey = GlobalKey<FormState>();
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('RegisterUser build()');
-
-    AuthService authService = AuthService();
-    final registerFormKey = GlobalKey<FormState>();
-
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final nameController = TextEditingController();
-    bool isLoading = false;
-
-    void dispose() {
-      emailController.dispose();
-      passwordController.dispose();
-      nameController.dispose();
-      super.dispose();
-    }
-
-    return isLoading == true
+    return isLoading
         ? Container(
             color: Colors.white,
             child: const Center(
@@ -112,7 +111,7 @@ class _RegisterUserState extends State<RegisterUser> {
                               });
                               dynamic result = await authService
                                   .createUserWithEmailAndPassword(
-                                    userName: nameController.text,
+                                userName: nameController.text,
                                 userEmail: emailController.text,
                                 userPassword: passwordController.text,
                               );

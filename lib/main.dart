@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const Wrapper(),
           '/authenticate': (context) => const Authenticate(),
-          '/home': (context) => const HomeScreen(),
+          '/home': (context) =>  HomeScreen(),
           '/signin': (context) => SignIn(
                 toggleView: () {},
               ),
