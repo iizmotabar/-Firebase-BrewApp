@@ -20,13 +20,12 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
   AuthService authService = AuthService();
   final _settingsBottomSheetKey = GlobalKey<FormState>();
   List<String> sugarsList = ['0', '1', '2', '3', '4'];
-  int sugars = 1;
-
-  final _sugarController = TextEditingController();
-  final _strengthController = TextEditingController();
-  final _nameController = TextEditingController();
+  int sugarIndex = 0;
 
   double sliderValue = 0.0;
+  int sugars = 0;
+
+  final _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +56,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
             ),
             const SizedBox(height: 20.0),
             Text(
-              'Sugars: $sugars',
+              'Sugars: ${sugarsList[sugarIndex]}',
               style: const TextStyle(
                 fontSize: 20.0,
               ),
@@ -72,7 +71,11 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          sugars += 1;
+                          if (sugarIndex == sugarsList.length - 1) {
+                            sugarIndex = 0;
+                          } else {
+                            sugarIndex++;
+                          }
                         });
                       },
                       icon: const Icon(Icons.add),
@@ -83,7 +86,11 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          sugars += -1;
+                          if (sugarIndex == 0) {
+                            sugarIndex = 0;
+                          } else {
+                            sugarIndex--;
+                          }
                         });
                       },
                       icon: const Icon(Icons.remove),
@@ -105,20 +112,18 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                 max: 1000,
                 activeColor: Colors.brown,
                 inactiveColor: Colors.brown.shade100,
-                label: 'Brew Strength',
+                label: '${sliderValue.round()}',
                 divisions: 10,
                 thumbColor: Colors.brown.shade500,
                 onChanged: (val) {
                   setState(() {
                     sliderValue = val;
-
-                    print(sliderValue);
                   });
                 }),
             const SizedBox(height: 20.0),
             ElevatedButton(
               child: const Text(
-                'Logout',
+                'Update Preferences',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -127,9 +132,6 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
               onPressed: () async {
                 await firestoreService.updateUserData(sugars.toString(),
                     _nameController.text, sliderValue.toInt());
-                // print(_nameController.text);
-                // print('This is null ${_sugarController.text}');
-                // print(_strengthController.text);
               },
             ),
           ],
