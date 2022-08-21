@@ -11,8 +11,7 @@ class BrewList extends StatelessWidget {
   Widget build(BuildContext context) {
     final brews = Provider.of<List<BrewUser?>>(context);
     for (var e in brews) {
-      print('This is the brew name: ${e!.name}');
-      print('This is the sugars: ${e.sugars}');
+  
     }
     return ListView.builder(
         itemCount: brews.length,

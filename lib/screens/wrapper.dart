@@ -19,7 +19,7 @@ class Wrapper extends StatelessWidget {
     }
   }
 
-  // print(user.uid);
+  
 
   // final FirebaseAuth auth = FirebaseAuth.instance;
 

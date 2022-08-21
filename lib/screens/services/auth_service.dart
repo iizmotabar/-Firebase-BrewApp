@@ -31,7 +31,7 @@ class AuthService {
       // Mapping the firebase user to the localUser
       return _userFromFirebaseUser(firebaseUser!);
     } catch (error) {
-      print('This is the error ${error.toString()}');
+    
       return null;
     }
   }
@@ -52,7 +52,7 @@ class AuthService {
       //  Mapping the firebase user to the localUser
       return _userFromFirebaseUser(firebaseUser);
     } catch (error) {
-      print('This is the error ${error.toString()}');
+
       return null;
     }
   }
@@ -66,7 +66,7 @@ class AuthService {
       // Mapping the firebase user to the localUser
       return _userFromFirebaseUser(firebaseUser!);
     } catch (error) {
-      print('This is the error ${error.toString()}');
+    
       return null;
     }
   }

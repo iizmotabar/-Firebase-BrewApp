@@ -31,7 +31,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    print('SignIn build()');
+
     return isLoading
         ? Container(
             color: Colors.white,
@@ -43,7 +43,7 @@ class _SignInState extends State<SignIn> {
                     onPressed: () {
                       widget.toggleView();
 
-                      print('Switching to RegisterUser');
+              
                     },
                     icon: const Icon(Icons.person),
                     label: const Text('Register')),
